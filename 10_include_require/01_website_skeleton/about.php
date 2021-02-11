@@ -1,19 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<header>
-    <a href="index.php">Home</a>
-    <a href="about.php">About</a>
-</header>
+<!--// bir php dosyasina baska bir php dosyasini aktarmanin iki farkli yolu vardir.-->
+<!--// bir include kullanmaktir.
+
+    Eger kodlariniz cok uzunsa bunun icin en effecietent method include_once kullanmaktir.
+    o zaman eger bu dosya bir kez include edildi ise, siz artik kec sefer yazmis olursan ol.
+    sadece bir kez interepter edilecektir.
+-->
+<?php  include_once  "utils/header.php";?>
+
+<!--# digeri require kullanmmaktir. -->
+<?php  require  "utils/header.php";
+
+/*
+    ikisi arasindaki fark ise include methodu dosyanin olmamasi halinde arkasindan gelen kodu calistirir.
+lakin require tam tersi butun codelari bloklar.
+
+    Ne zaman kullanilmalidir?? Eger dosya absolutely gerekli ise require, eger olsa da olur olmasa
+da o zaman include.
+ */
+?>
+
 <h1>About us</h1>
-<footer>
-    Copyright &copy; TheCodeholic</footer>
-</body>
-</html>
+<?php  include_once "utils/footer.php"; ?>

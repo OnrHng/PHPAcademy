@@ -31,7 +31,7 @@ $numberInt = (int) $strNumber; // 11
 // Number functions
 echo "abs(-15) " . abs(-15) . '<br>'; // gives absolute value
 echo "pow(2,  3) " . pow(2, 3) . '<br>'; // gives 2^3 = 8 power
-echo "sqrt(16) " . sqrt(16) . '<br>'; // karesini veriri
+echo sprintf("sqrt(16) %s<br>", sqrt(16)); // karesini veriri
 echo "max(2, 3) " . max(2, 3) . '<br>'; // gives max value
 echo "min(2, 3) " . min(2, 3) . '<br>'; // gives min value
 echo "round(2.4) " . round(2.4) . '<br>'; // 2.5 tan kucukse asasgi 2

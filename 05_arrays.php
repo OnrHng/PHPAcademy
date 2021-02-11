@@ -104,24 +104,72 @@ echo '</pre>';
 // https://www.php.net/manual/en/ref.array.php
 
 // ============================================
-// Associative arrays
+// Associative arrays (Iliskili arrays)
 // ============================================
+// java daki hashmap gibi veya js deki object gibi dusunebilirsin
+// key - value pairs
+
 
 // Create an associative array
+$person = [
+    'name' => 'Onur',
+    'surname' => 'Han',
+    'age' => 3,
+    'hobbies' => ['Sport','Garten']
+];
+echo '<pre>';
+print_r($person);
+echo '</pre>';
+
 
 // Get element by key
+echo $person['name'].'<br>';
 
 // Set element by key
+$person['languages'] = ['English', 'German'];
+echo '<pre>';
+print_r($person);
+echo '</pre>';
 
 // Null coalescing assignment operator. Since PHP 7.4
+$person['address'] ??= 'unknown'; // that makes is there isnot a address key in the arr, define it and initialize into
+// same way under
+//$person['address'] = $person['address'] ?? 'unknown';
+
+echo '<pre>';
+print_r($person);
+echo '</pre>';
+
 
 // Check if array has specific key
 
 // Print the keys of the array
+print_r(array_keys($person)).'<br>';
+echo '<br>';
 
 // Print the values of the array
+print_r(array_values($person));
 
 // Sorting associative arrays by values, by keys
+ksort($person);
+echo '<pre>';
+print_r($person);
+echo '</pre>';
+
+asort($person);
+echo '<pre>';
+print_r($person);
+echo '</pre>';
 
 
 // Two dimensional arrays
+$todos = [
+  ['title' => 'Task1', 'completed' => false],
+  ['title' => 'Task2', 'completed' => true],
+  ['title' => 'Task3', 'completed' => false],
+
+];
+
+echo '<pre>';
+print_r($todos);
+echo '</pre>';

@@ -5,7 +5,8 @@
 // Variable types
     // has any types , typelos language, variable are dynamic type
 // Declare variables
-    // Use $ sign to define it. Musst begin with letter // String integer float boolean null array object and resource
+    // Use $ sign to define it. Musst begin with letter
+//  String integer float boolean null array object and resource
     // are type of variable.
 $name = "Onur";
 $age = 30;
