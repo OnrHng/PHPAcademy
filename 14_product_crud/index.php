@@ -52,13 +52,20 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC); // fetch all data as an asso
     <?php foreach ($products as $i => $product) : ?>
         <tr>
             <th scope="row"><?php echo $i + 1 ?></th>
-            <td><?php echo $product['image']  ?></td>
+            <td>
+                <img src="<?php echo $product['image']  ?>" alt="" class="images">
+            </td>
             <td><?php echo $product['title']  ?></td>
             <td><?php echo $product['price']  ?></td>
             <td><?php echo $product['create_date']  ?></td>
             <td>
-                <button type="button" class="btn btn-sm btn-outline-primary">EDIT</button>
-                <button type="button" class="btn btn-sm btn-outline-danger">DELETE</button>
+                <a href="updateProduct.php?id=<?php echo $product['id'] ?>"  class="btn btn-sm btn-outline-primary">EDIT</a>
+
+                <form style="display: inline-block"  action="deleteProduct.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $product['id'] ?>">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">DELETE</button>
+                </form>
+
             </td>
         </tr>
 

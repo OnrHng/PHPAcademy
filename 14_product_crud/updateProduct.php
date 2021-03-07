@@ -23,10 +23,25 @@ bundan dolayi super global variable olan SERVER kullanmaliyiz.
 // we can use super global _FILES and should add from an attribute which is enctype
 
 
+$id = $_GET['id'] ?? null;
+
+if (!$id) {
+    header('Location: index.php');
+    exit;
+}
+
+// update statement
+$statement = $pdo -> prepare("SELECT * FROM products WHERE id = :id");
+$statement -> bindValue(':id', $id);
+$statement->execute();
+
+$product = $statement->fetch(PDO::FETCH_ASSOC);
+
+
 $errors = [];
-$title = '';
-$description = '';
-$price = '';
+$title = $product['title'] ?? null;
+$description = $product['description'] ?? null;
+$price = $product['price'] ?? null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // receives data from Form
@@ -50,27 +65,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // there isnot any error then insert data into db
     if (empty($errors)) {
+        // find old image folder
+        $oldDirName = dirname($product['image']);
+        if($product['image']) {
+            // first delete all files in the folder
+            array_map('unlink', glob("$oldDirName/*.*"));
+            // delete folder
+            rmdir($oldDirName);
+
+        }
+
         // upload image
         $imagePath = null;
         $image = $_FILES['image'] ?? null;
         if ($image['tmp_name']) {
 
+            // upload new one
             $imagePath = 'images/'.randomString(8).'/'.$image['name'];
-
             mkdir(dirname($imagePath));
             move_uploaded_file($image['tmp_name'], $imagePath);
 
         }
 
         // prepare statement
-        $statement = $pdo->prepare("INSERT INTO products (image, title, description, price, create_date)
-                        VALUES (:image, :title, :description, :price, :date)");
+        $statement = $pdo->prepare("UPDATE products SET title = :title, image = :image, description = :description,
+                    price = :price WHERE id = :id");
 
         $statement->bindValue(':image', $imagePath); // for db give imagepath has also image name with pat
         $statement->bindValue(':title', $title);
         $statement->bindValue(':description', $description);
         $statement->bindValue(':price', $price);
-        $statement->bindValue(':date', $date);
+        $statement->bindValue(':id', $id);
 
         $statement->execute();
 
@@ -105,10 +130,12 @@ function randomString($n)
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="app.css">
-    <title>PRODUCTS</title>
+    <title>Update Product</title>
 </head>
 <body>
-<h1>Create New Product</h1>
+
+<a href="index.php" class="btn btn-secondary">Go Back To Products</a>
+<h1>Update Product <b><?php echo $product['title']?></b> </h1>
 
 <!--ERRORs of FROM VALIDATION-->
 <?php if(!empty($errors)) : ?>
@@ -127,6 +154,10 @@ function randomString($n)
     and search funktion inside the website. All search data is seen on the URL
 -->
 <form action="" method="post" enctype="multipart/form-data">
+    <?php if ($product['image']) :  ?>
+        <img src="<?php echo($product['image']) ?>" alt="" class="update-image">
+    <?php endif;  ?>
+
     <div class="mb-3">
         <label>Product Image</label><br>
         <input type="file" name="image">

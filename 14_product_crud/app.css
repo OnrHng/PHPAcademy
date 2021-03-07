@@ -1,3 +1,10 @@
 body {
     padding: 50px;
 }
+
+.images {
+    width: 50px;
+}
+.update-image {
+    width: 150px;
+}
