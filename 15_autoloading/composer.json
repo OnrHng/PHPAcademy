@@ -1,0 +1,17 @@
+{
+    "name": "onur/15_autoloading",
+    "authors": [
+        {
+            "name": "OnrHng",
+            "email": "hangul07@hacettepe.edu.tr"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "./app"
+        }
+    }
+}

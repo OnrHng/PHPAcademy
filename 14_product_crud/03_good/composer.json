@@ -1,0 +1,16 @@
+{
+    "name": "onur/03_good",
+    "authors": [
+        {
+            "name": "OnrHng",
+            "email": "hangul07@hacettepe.edu.tr"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "./app"
+        }
+    },
+    "description": "test purposes"
+}
